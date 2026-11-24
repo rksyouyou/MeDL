@@ -1,0 +1,7 @@
+# Only the public source files and documentation belong in this repository.
+*
+!/.gitignore
+!/README.md
+!/MeDL.R
+!/src/
+!/src/medl.cpp
