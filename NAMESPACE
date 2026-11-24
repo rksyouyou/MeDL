@@ -1,0 +1,4 @@
+useDynLib(MeDL, .registration = TRUE, .fixes = "C_")
+importFrom(stats, cov2cor, lm.fit, optimize, pchisq, pt, rnorm)
+export(medl_fit)
+export(medl_prepare)

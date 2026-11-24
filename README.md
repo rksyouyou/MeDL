@@ -2,20 +2,35 @@
 
 MeDL tests whether a genetically predicted mediator is associated with an outcome. It fits a random-effects regression of the estimated joint variant effects on the signed mediator prediction weights, with a free intercept for the mean direct effect. It uses the full sampling covariance of the joint effects.
 
-## Setup
+## Install from GitHub
 
-Use R with a C++ compiler configured for R (Rtools on Windows, Xcode Command Line Tools on macOS). The code uses base R and its standard stats package. From the repository root, compile the native likelihood routines once in a terminal:
-
-```sh
-R CMD SHLIB src/medl.cpp
-```
-
-Then run the following from the same directory in each R session:
+In R, run:
 
 ```r
-dyn.load(file.path("src", paste0("medl", .Platform$dynlib.ext)))
-source("MeDL.R")
+if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")
+remotes::install_github("rksyouyou/MeDL", upgrade = "never")
 ```
+
+Installation compiles the package's native code. Use Rtools on Windows,
+Xcode Command Line Tools on macOS, or a C and C++ compiler on Linux.
+
+## Run the simulated example
+
+```r
+library(MeDL)
+joint <- do.call(medl_prepare, medl_example)
+fit <- medl_fit(joint, B = 99, seed = 42)
+fit$p_values
+fit$fits[["REML-KR"]][c("theta", "gamma", "tau2")]
+```
+
+The example contains summary statistics, signed prediction weights and a genotype
+covariance matrix for 20 simulated variants. The script
+[`data-raw/medl_example.R`](data-raw/medl_example.R) generates every input
+from a fixed seed. The 99 bootstrap draws illustrate
+the workflow and give a minimum attainable bootstrap P-value of 0.01. See
+`?medl_example` for the data-generating parameters and `?medl_fit` for the
+test outputs.
 
 ## Inputs for one mediator
 

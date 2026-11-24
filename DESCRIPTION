@@ -1,0 +1,23 @@
+Package: MeDL
+Type: Package
+Title: Summary-Statistics-Based Tests for Genetically Predicted Mediators
+Version: 0.1.0
+Authors@R: c(person("Meiling", "Liu", role = c("aut", "cre"),
+                    email = "rksyouyou@users.noreply.github.com"),
+             person("Chongzhi", "Di", role = "aut"),
+             person("Wei", "Sun", role = "aut"),
+             person("Qianchuan", "He", role = "aut"),
+             person("Li", "Hsu", role = "aut"))
+Description: Reconstruct joint genetic effects from marginal association
+    statistics and a reference genotype covariance matrix. Test the association
+    of a genetically predicted mediator with an outcome using random-effects
+    regression, allowing for correlated variants and a nonzero mean direct
+    effect. Provides likelihood- and moment-based tests and an optional
+    parametric bootstrap.
+License: file LICENSE
+URL: https://github.com/rksyouyou/MeDL
+Encoding: UTF-8
+Depends: R (>= 3.5.0)
+Imports: stats
+LazyData: true
+NeedsCompilation: yes

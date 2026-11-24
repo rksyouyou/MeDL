@@ -1,7 +1,20 @@
-# Only the public source files and documentation belong in this repository.
 *
 !/.gitignore
+!/.Rbuildignore
+!/DESCRIPTION
+!/LICENSE
+!/NAMESPACE
 !/README.md
-!/MeDL.R
 !/src/
 !/src/medl.cpp
+!/src/init.c
+!/R/
+!/R/medl.R
+!/man/
+!/man/medl_prepare.Rd
+!/man/medl_fit.Rd
+!/man/medl_example.Rd
+!/data/
+!/data/medl_example.rda
+!/data-raw/
+!/data-raw/medl_example.R

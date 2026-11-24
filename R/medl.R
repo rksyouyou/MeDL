@@ -155,7 +155,7 @@ method_REML_KR <- function(dat) {
     if(any(e<=0)) stop('Sigma must be positive definite.')
     Q = crossprod(eig$vectors,d$Z)
     y = as.numeric(crossprod(eig$vectors,d$y))
-    fit = .Call('reml_full', y, e, Q, PACKAGE = 'medl')
+    fit = .Call(C_reml_full, y, e, Q)
     tau2 = fit[1]
     iv = 1/(e+tau2)
     A1 = crossprod(Q,Q*iv)
@@ -272,7 +272,7 @@ medl_bootstrap <- function(d, null, observed, B, seed, interval) {
     while (remaining > 0) {
         n <- min(remaining, 1000L)
         y <- matrix(rnorm(d$P * as.double(n)), d$P, n) * sd_y + mean_y
-        statistics <- .Call("lr_profiles", y, eig$values, design, PACKAGE = "medl")[, 1L]
+        statistics <- .Call(C_lr_profiles, y, eig$values, design)[, 1L]
         exceedances <- exceedances + sum(statistics >= observed)
         remaining <- remaining - n
     }
@@ -285,7 +285,6 @@ medl_fit <- function(joint, B = 0, seed = NULL, bootstrap_null_interval = NULL) 
     if (!is.list(joint) || !all(c("beta_hat", "W", "Sigma") %in% names(joint))) {
         stop("joint must contain beta_hat, W, and Sigma.")
     }
-    if (!is.loaded("reml_full", PACKAGE = "medl")) stop("Load the compiled medl library as described in README.md.")
     check_vector(joint$W, length(joint$W), "W")
     check_vector(joint$beta_hat, length(joint$W), "beta_hat")
     if (!is.matrix(joint$Sigma) || !is.numeric(joint$Sigma)) stop("Sigma must be a numeric matrix.")
